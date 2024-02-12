@@ -1,22 +1,22 @@
 import React from 'react'
-import { View } from "react-native";
-import { Container, Button, Text, Input, FormControl, Stack } from "native-base"
+import { View, Text } from "react-native";
+import { Container, Button, Input, FormControl, Stack} from "native-base"
+import globalStyles from '../styles/global';
 
 const Login = () => {
   return (
-        <View>
-          <Text textAlign={"center"} marginTop={3} fontSize="3xl">
+        <View style={[ globalStyles.contenedor, { backgroundColor: "#E84347"}]}>
+          <View style={globalStyles.contenido}>
+          <Text style={globalStyles.titulo}>
             NativeTask
           </Text>
           <FormControl >
-              <Stack space={5}>
-                <Stack marginX={5}>
-                  <FormControl.Label>Email</FormControl.Label>
-                  <Input variant="underlined" p={2} placeholder="Email" type='email'/>
+              <Stack space={5} >
+                <Stack marginX={5} style={globalStyles.input}>
+                  <Input size={"md"} autoComplete='email' variant="underlined" p={2} placeholder="Email" type='email'/>
                 </Stack>
-                <Stack marginX={5}>
-                  <FormControl.Label>Password</FormControl.Label>
-                  <Input variant="underlined" p={2} placeholder="Password" type='password'/>
+                <Stack marginX={5} style={globalStyles.input}>
+                  <Input size="md" variant="underlined" p={2} placeholder="Password" type='password'/>
                 </Stack>
               </Stack>
            </FormControl>
@@ -25,13 +25,13 @@ const Login = () => {
               square 
               block
               marginX={5}
-              marginTop={5}
+              style={globalStyles.boton}
             >
-              <Text>Iniciar Sesión</Text>
+              <Text style={globalStyles.botonTexto}>Iniciar Sesión</Text>
             </Button>
 
-         <Text textAlign={"center"} marginTop={3}>Crear Cuenta</Text>
-        
+         <Text style={globalStyles.enlace}>Crear Cuenta</Text>
+         </View>
         </View>
   )
 }
