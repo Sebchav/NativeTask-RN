@@ -7,6 +7,14 @@ import { useNavigation } from '@react-navigation/native';
 
 import globalStyles from '../styles/global';
 
+import { gql, useMutation } from "@apollo/client"
+
+const NUEVA_CUENTA = gql`
+  mutation crearUsuario($input: UsuarioInput){
+    crearUsuario(input: $input)
+  }
+`
+
 const CrearCuenta = () => {
   const toast = useToast();
   //State form
@@ -18,7 +26,9 @@ const CrearCuenta = () => {
 
   const navigation = useNavigation();
 
-  const handleSubmit = ()=>{
+  const [ crearUsuario ] = useMutation(NUEVA_CUENTA);
+
+  const handleSubmit = async()=>{
     //Validar
     if(nombre === "" || email === "" || password === ""){
       toast.show({
@@ -27,9 +37,31 @@ const CrearCuenta = () => {
       })
       return;
     }
-    //Password 6 caracteres
 
+    //Password 6 caracteres
+    if(password.length < 6 ){
+      toast.show({
+        title: "El password debe ser de al menos 6 caracteres",
+        placement: "bottom"
+      })
+      return;
+    } 
+     
     //Crear usuario
+    try{
+      const { data } = await crearUsuario({
+        variables: {
+          input: {
+            nombre,
+            email,
+            password
+          }
+        }
+      });
+      console.log(data);
+    }catch(error){
+      console.log(error);
+    }
   }
 
   return (
